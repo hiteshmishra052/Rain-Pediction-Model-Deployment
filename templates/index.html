@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>Rain Prediction Model</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+   <!-- partial:index.partial.html -->
+   <div class="aaa">
+      <div class="container">
+         <div class="text">
+            Rain Prediction
+         </div>
+         <form action="{{ url_for('predict')}}" method="post">
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="date" name="Date" required>
+                  <div class="underline"></div>
+                  <label for=""></label>
+               </div>
+               <div class="input-data">
+                  <select name="Location" id="cars" required>
+                     <option value="none" selected disabled hidden>Select Location</option>
+                     <option value="Albury">Albury</option>
+                     <option value="BadgerysCreek">BadgerysCreek</option>
+                     <option value="Cobar">Cobar</option>
+                     <option value="CoffsHarbour">CoffsHarbour</option>
+                     <option value="Moree">Moree</option>
+                     <option value="Newcastle">Newcastle</option>
+                     <option value="NorahHead">NorahHead</option>
+                     <option value="NorfolkIsland">NorfolkIsland</option>
+                     <option value="Penrith">Penrith</option>
+                     <option value="Richmond">Richmond</option>
+                     <option value="Sydney">Sydney</option>
+                     <option value="SydneyAirport">SydneyAirport</option>
+                     <option value="WaggaWagga">WaggaWagga</option>
+                     <option value="Williamtown">Williamtown</option>
+                     <option value="Wollongong">Wollongong</option>
+                     <option value="Canberra">Canberra</option>
+                     <option value="Tuggeranong">Tuggeranong</option>
+                     <option value="MountGinini">MountGinini</option>
+                     <option value="Ballarat">Ballarat</option>
+                     <option value="Bendigo">Bendigo</option>
+                     <option value="Sale">Sale</option>
+                     <option value="MelbourneAirport">MelbourneAirport</option>
+                     <option value="Melbourne">Melbourne</option>
+                     <option value="Mildura">Mildura</option>
+                     <option value="Nhil">Nhil</option>
+                     <option value="Portland">Portland</option>
+                     <option value="Watsonia">Watsonia</option>
+                     <option value="Dartmoor">Dartmoor</option>
+                     <option value="Brisbane">Brisbane</option>
+                     <option value="Cairns">Cairns</option>
+                     <option value="GoldCoast">GoldCoast</option>
+                     <option value="Townsville">Townsville</option>
+                     <option value="Adelaide">Adelaide</option>
+                     <option value="MountGambier">MountGambier</option>
+                     <option value="Nuriootpa">Nuriootpa</option>
+                     <option value="Woomera">Woomera</option>
+                     <option value="Albany">Albany</option>
+                     <option value="Witchcliffe">Witchcliffe</option>
+                     <option value="PearceRAAF">PearceRAAF</option>
+                     <option value="PerthAirport">PerthAirport</option>
+                     <option value="Perth">Perth</option>
+                     <option value="SalmonGums">SalmonGums</option>
+                     <option value="Walpole">Walpole</option>
+                     <option value="Hobart">Hobart</option>
+                     <option value="Launceston">Launceston</option>
+                     <option value="AliceSprings">AliceSprings</option>
+                     <option value="Darwin">Darwin</option>
+                     <option value="Katherine">Katherine</option>
+                     <option value="Uluru">Uluru</option>
+                  </select>
+                  <div class="underline"></div>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="MinTemp" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Min Temp</label>
+               </div>
+               <div class="input-data">
+                  <input type="number" name="MaxTemp" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Max Temp</label>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="Rainfall" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Rainfall</label>
+               </div>
+               <div class="input-data">
+                  <input type="number" name="Evaporation" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Evaporation</label>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="Sunshine" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Sunshine</label>
+               </div>
+               <div class="input-data">
+                  <select name="WindGustDir" id="cars" required>
+                     <option value="none" selected disabled hidden>Select WindGust Direction</option>
+                     <option value="W">W</option>
+                     <option value="WNW">WNW</option>
+                     <option value="WSW">WSW</option>
+                     <option value="NE">NE</option>
+                     <option value="NNW">NNW</option>
+                     <option value="N">N</option>
+                     <option value="NNE">NNE</option>
+                     <option value="SW">SW</option>
+                     <option value="ENE">ENE</option>
+                     <option value="SSE">SSE</option>
+                     <option value="S">S</option>
+                     <option value="NW">NW</option>
+                     <option value="SE">SE</option>
+                     <option value="ESE">ESE</option>
+                     <option value="E">E</option>
+                     <option value="SSW">SSW</option>
+                  </select>
+                  <div class="underline"></div>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="WindGustSpeed" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Wind Gust Speed</label>
+               </div>
+               <div class="input-data">
+                  <select name="WindDir9am" id="cars" required>
+                     <option value="none" selected disabled hidden>Select Wind Direction 9am</option>
+                     <option value="W">W</option>
+                     <option value="WNW">WNW</option>
+                     <option value="WSW">WSW</option>
+                     <option value="NE">NE</option>
+                     <option value="NNW">NNW</option>
+                     <option value="N">N</option>
+                     <option value="NNE">NNE</option>
+                     <option value="SW">SW</option>
+                     <option value="ENE">ENE</option>
+                     <option value="SSE">SSE</option>
+                     <option value="S">S</option>
+                     <option value="NW">NW</option>
+                     <option value="SE">SE</option>
+                     <option value="ESE">ESE</option>
+                     <option value="E">E</option>
+                     <option value="SSW">SSW</option>
+                  </select>
+                  <div class="underline"></div>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <select name="WindDir3pm" id="cars" required>
+                     <option value="none" selected disabled hidden>Select Wind Direction 3pm</option>
+                     <option value="W">W</option>
+                     <option value="WNW">WNW</option>
+                     <option value="WSW">WSW</option>
+                     <option value="NE">NE</option>
+                     <option value="NNW">NNW</option>
+                     <option value="N">N</option>
+                     <option value="NNE">NNE</option>
+                     <option value="SW">SW</option>
+                     <option value="ENE">ENE</option>
+                     <option value="SSE">SSE</option>
+                     <option value="S">S</option>
+                     <option value="NW">NW</option>
+                     <option value="SE">SE</option>
+                     <option value="ESE">ESE</option>
+                     <option value="E">E</option>
+                     <option value="SSW">SSW</option>
+                  </select>
+                  <div class="underline"></div>
+               </div>
+               <div class="input-data">
+                  <input type="number" name="WindSpeed9am" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Wind Speed 9am</label>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="WindSpeed3pm" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Wind Speed 3pm</label>
+               </div>
+               <div class="input-data">
+                  <input type="number" name="Humidity9am" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Humidity 9am</label>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="Humidity3pm" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Humidity 3pm</label>
+               </div>
+               <div class="input-data">
+                  <input type="number" name="Pressure9am" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Pressure 9am</label>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="Pressure3pm" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Pressure 3pm</label>
+               </div>
+               <div class="input-data">
+                  <input type="number" name="Cloud9am" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Cloud 9am</label>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="Cloud3pm" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Cloud 3pm</label>
+               </div>
+               <div class="input-data">
+                  <input type="number" name="Temp9am" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Temperature 9am</label>
+               </div>
+            </div>
+            <div class="form-row">
+               <div class="input-data">
+                  <input type="number" name="Temp3pm" step="0.01" required>
+                  <div class="underline"></div>
+                  <label for="">Temperature 3pm</label>
+               </div>
+               <div class="input-data">
+                  <select name="RainToday" id="cars" required>
+                     <option value="none" selected disabled hidden>Select Rain Today</option>
+                     <option value="Yes">Yes</option>
+                     <option value="No">No</option>
+                  </select>
+                  <div class="underline"></div>
+               </div>
+            </div>
+            <div class="form-row">
+               <button class="input-data" id="bt" type="submit" value="submit"> PREDICT</button>
+            </div>
+
+         </form>
+      </div>
+
+      <div class="xyz">
+         <h2 class="pr">Prediction</h2>
+         <br>
+         {{ prediction_text }}
+
+
+      </div>
+   </div>
+   <!-- partial -->
+
+</body>
+
+</html>
