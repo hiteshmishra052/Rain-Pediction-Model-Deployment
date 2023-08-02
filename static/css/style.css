@@ -159,7 +159,8 @@ form .form-row .textarea{
   
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   margin-top: 10px;
-  padding: 20px
+  padding: 20px;
+  text-align: center; 
 }
 .pr{
  font-weight:bold;
@@ -181,4 +182,10 @@ select {
   border: 1px solid #ccc;
   background: transparent;
   width: 20rem;
+}
+
+h2{
+  text-align: center;
+    font-weight: bolder;
+    font-size: 23px;
 }
